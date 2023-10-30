@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/marketzone/static/css/main.dbe6ec48.css",
-    "main.js": "/marketzone/static/js/main.ac634e5b.js",
+    "main.js": "/marketzone/static/js/main.2848d58d.js",
     "static/js/787.304905b6.chunk.js": "/marketzone/static/js/787.304905b6.chunk.js",
     "static/media/prod1.jpg": "/marketzone/static/media/prod1.f7f171c71882ccf21f28.jpg",
     "index.html": "/marketzone/index.html",
     "static/media/account-25.svg": "/marketzone/static/media/account-25.c8a4de63ef45074cc12e73feb182ed9f.svg",
     "main.dbe6ec48.css.map": "/marketzone/static/css/main.dbe6ec48.css.map",
-    "main.ac634e5b.js.map": "/marketzone/static/js/main.ac634e5b.js.map",
+    "main.2848d58d.js.map": "/marketzone/static/js/main.2848d58d.js.map",
     "787.304905b6.chunk.js.map": "/marketzone/static/js/787.304905b6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dbe6ec48.css",
-    "static/js/main.ac634e5b.js"
+    "static/js/main.2848d58d.js"
   ]
 }
