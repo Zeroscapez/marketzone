@@ -1,0 +1,100 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    background-color: blueviolet;
+    flex-direction: column;
+    height: 100vh;
+    min-width: 300px;
+}
+
+
+  .forminfo input{
+    margin: 0;
+    border-radius: 50px;
+    box-sizing: border-box;
+    height: 40px;
+    width: 100%;
+    padding: 16px;
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  .loginsection h2{
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .loginsection{
+    align-self: center;
+    margin-bottom: 30px;
+    max-width: 30%;
+    margin: 0 auto;
+  }
+
+  .header{
+    margin: 26px;
+  }
+
+  .forminfo{
+    position: relative;
+    font-size: .875rem;
+    margin-bottom: 20px;
+  }
+
+  label.floating_label--animate{
+    transition: transform .3s 
+    cubic-bezier(0.25,0.1,0.25,1),bottom .3s 
+    cubic-bezier(0.25,0.1,0.25,1);
+
+  }
+
+  label.floating_label--inline{
+    font-size: .875rem;
+    transform: translate(0,12px);
+    margin-bottom: 30px;
+
+  }
+
+  label.floating-label {
+    color: var(--floating-label-color,var(--color-foreground-primary));
+    background-color: transparent;
+    display: inline-block;
+    left: 16px;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: 0;
+    transform: scale(0.75,0.75) translate(0,2px);
+    transform-origin: left;
+    white-space: nowrap;
+    width: calc(100% - 40px);
+    z-index: 1;
+  }
+
+  .floating-label{
+    position: relative;
+  }
+
+  div.floating-label{
+    display: block;
+  }
+
+  .loginsection button{
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    height: 48px;
+    min-height: 48px;
+    padding: 13px 20px;
+    border-radius: 50px;
+
+  }
+
+  .loginsection form {
+  max-width: 300px;
+  margin: 0 auto;
+}
