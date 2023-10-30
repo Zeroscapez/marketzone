@@ -27,7 +27,7 @@ class RegistrationPage extends Component {
     console.log('Password:', password);
 
     try {
-      const response = await axios.post('http://localhost:3001/marketzone/api/register', {
+      const response = await axios.post('https://zeroscapez.github.io/marketzone/api/register', {
         first_name,
         last_name,
         email,
