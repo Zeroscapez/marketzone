@@ -42,7 +42,7 @@ app.get('/marketzone/*', (req, res) => {
 });
 
 // Create an endpoint for user registration
-app.post('/api/register', (req, res) => {
+app.post('/marketzone/api/register', (req, res) => {
   // ... (registration logic)
 
   // Get the registration data from the request body
