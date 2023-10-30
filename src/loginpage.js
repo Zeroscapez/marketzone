@@ -56,7 +56,7 @@ class LoginPage extends Component {
         </div>
         <div className="loginsection">
           <h2>
-            Hello, Sign in or <Link to="/registration">create an account</Link>
+            Hello, Sign in or <Link to="/marketzone/registration">create an account</Link>
           </h2>
           <form action="" method="post" onSubmit={this.handleFormSubmit}>
             <div className="forminfo">
