@@ -2,7 +2,7 @@ body{
     font-family: Arial, sans-serif;
     margin: 0;
     display: flex;
-    background-color: blueviolet;
+    background-color: #C8A2C8;
     flex-direction: column;
     height: 100vh;
     min-width: 300px;
@@ -98,3 +98,88 @@ body{
   max-width: 300px;
   margin: 0 auto;
 }
+
+/* Add your styles for the product container, image, and description */
+/* Center the product on the page and reduce its width to 40% */
+.product-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--product-bg-color, white);
+  padding: 20px;
+  border: 1px solid var(--product-border-color, black);
+  max-width: 40%; /* Set the maximum width to 40% of the viewport */
+  margin: 0 auto; /* Center horizontally */
+}
+
+
+.product-image {
+  margin-right: 10px;
+}
+
+.product-image img {
+  max-width: 60%;
+}
+
+.product-description {
+  flex: 1;
+}
+
+.product-description h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.product-description p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.product-description strong {
+  color: var(--product-price-color, black);
+}
+
+.product-description button {
+  background-color: var(--product-button-bg, black);
+  color: var(--product-button-text, white);
+  font-weight: bold;
+  font-size: 1rem;
+  height: 48px;
+  min-height: 48px;
+  padding: 13px 20px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.account-link {
+  text-align: right;
+  display: flex;
+  align-items: center;
+}
+
+.account-link a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar img{
+  max-width: 30%;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+/* Add any other styles you want for the navigation bar/header */
+

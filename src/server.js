@@ -9,10 +9,10 @@ const port = 3001;
 
 // Create a MySQL database connection
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root', // Replace with your MySQL username
-  password: 'password', // Replace with your MySQL password
-  database: 'myDB', // Replace with your database name
+  host: 'bbeoy7q7ihokrdjrq29m-mysql.services.clever-cloud.com',
+  user: 'ud0zvx4w9o1nr8sd', // Replace with your MySQL username
+  password: 'VHKKVfe6KPwsEPtskYqh', // Replace with your MySQL password
+  database: 'bbeoy7q7ihokrdjrq29m', // Replace with your database name
 });
 
 db.connect((err) => {
