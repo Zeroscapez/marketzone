@@ -10,7 +10,7 @@ class App extends React.Component {
         <header className="navbar">
           <h1>Welcome to Our Store</h1>
           <div className="account-link">
-            <a href="marketzone/account">My Account <img src={accimg} alt="acc" /></a> {/* Link to the AccountPage */}
+            <a href="/marketzone/registration">My Account <img src={accimg} alt="acc" /></a> {/* Link to the AccountPage */}
           </div>
         </header>
 
