@@ -5,14 +5,14 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 3306; // Use the PORT environment variable if available
+const port = 3001;
 
 // Create a MySQL database connection
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || 'bbeoy7q7ihokrdjrq29m-mysql.services.clever-cloud.com',
-  user: process.env.DB_USER || 'ud0zvx4w9o1nr8sd', // Replace with your MySQL username
-  password: process.env.DB_PASSWORD || 'VHKKVfe6KPwsEPtskYqh', // Replace with your MySQL password
-  database: process.env.DB_DATABASE || 'bbeoy7q7ihokrdjrq29m', // Replace with your database name
+  host: 'localhost',
+  user: 'root', // Replace with your MySQL username
+  password: 'password', // Replace with your MySQL password
+  database: 'myDB', // Replace with your database name
 });
 
 db.connect((err) => {
@@ -23,21 +23,22 @@ db.connect((err) => {
   console.log('Connected to MySQL');
 });
 
+
 app.use(bodyParser.json());
 
-// Enable CORS for all routes (You can specify your GitHub Pages site's URL)
+// Enable CORS for all routes
 app.use(cors());
 
-// Serve the React frontend (you may need to adjust the path)
-app.use(express.static(path.join(__dirname, 'src')));
+// Serve the React frontend from the 'src' directory
+app.use(express.static(path.join(__dirname, '../src')));
 
 app.get('/', (req, res) => {
-  res.send('Welcome to My App'); // You can customize this message
-});
+    res.send('Welcome to My App'); // You can customize this message
+  });
 
 // Define a catch-all route to serve the main HTML file
 app.get('/marketzone/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src/index.html'));
+  res.sendFile(path.join(__dirname, '../src/index.html'));
 });
 
 // Create an endpoint for user registration
@@ -49,10 +50,10 @@ app.post('/marketzone/api/register', (req, res) => {
 
   // Implement the logic to insert the user registration data into your MySQL database
   const { first_name, last_name, email, username, password } = userData;
-
+  
   // Sample SQL query to insert data into a 'users' table
   const sql = `INSERT INTO users (first_name, last_name, email, username, password) VALUES (?, ?, ?, ?, ?)`;
-
+  
   db.query(sql, [first_name, last_name, email, username, password], (error, results) => {
     if (error) {
       console.error('Database error:', error);
@@ -67,6 +68,35 @@ app.post('/marketzone/api/register', (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
 
   // ... (response logic)
+});
+
+// Create an endpoint for user login
+app.post('/marketzone/api/login', (req, res) => {
+  // Get the login data from the request body
+  const loginData = req.body;
+
+  // Implement the logic to verify the user's credentials
+  const { username, password } = loginData;
+
+  // Sample SQL query to check if the user with the provided credentials exists in the 'users' table
+  const sql = `SELECT * FROM users WHERE username = ? AND password = ?`;
+
+  db.query(sql, [username, password], (error, results) => {
+    if (error) {
+      console.error('Database error:', error);
+      res.json({ success: false, message: 'Login failed' });
+    } else {
+      if (results.length === 0) {
+        res.json({ success: false, message: 'Invalid username or password' });
+      } else {
+        // User is authenticated; you can create a session or issue a token here
+        res.json({ success: true, message: 'Login successful' });
+      }
+    }
+  });
+
+  // Enable CORS for this specific route
+  res.header('Access-Control-Allow-Origin', '*');
 });
 
 // ... (other routes and logic)

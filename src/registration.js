@@ -27,7 +27,7 @@ class RegistrationPage extends Component {
     console.log('Password:', password);
 
     try {
-      const response = await axios.post('/marketzone/api/register', {
+      const response = await axios.post('http://localhost:3001/marketzone/api/register', {
         first_name,
         last_name,
         email,
@@ -91,6 +91,9 @@ class RegistrationPage extends Component {
             </div>
             <button type="submit">Sign Up</button>
           </form>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <a href="marketzone_login" style={{ alignSelf: 'center', padding: '20px' }}>Already have an account?</a>
+          </div>
         </div>
       </div>
     );
