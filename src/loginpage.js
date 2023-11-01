@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './websitecolors.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Import the cookie library
+import Cookies from 'js-cookie';
 
-function LoginPage() {
+function LoginPage(props) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -21,13 +21,36 @@ function LoginPage() {
         password,
       });
 
-      if (response.data.success) {
-        alert('Login successful!');
-        
-        // Set a cookie to remember the login status
-        Cookies.set('isLoggedIn', 'true', { expires: 7 }); // Expires in 7 days
+      console.log('Login Response:', response);
 
-        navigate('/');
+      if (response.data.success) {
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+        alert('Login successful!');
+
+        // Set a cookie to remember the login status
+        Cookies.set('isLoggedIn', 'true', { expires: 7 });
+        
+
+        // Fetch the user's name using an API call
+        const userDataResponse = await axios.get('http://localhost:3001/marketzone/api/userData', { headers });
+
+        if (userDataResponse.data.success) {
+          // Modify this part to match your actual API response structure
+          const userName = userDataResponse.data.data.username;
+          // Store the user's name in a cookie
+          console.log(userName);
+          console.log("Test");
+          Cookies.set('userName', userName, { expires: 7 });
+          props.setLoggedInUser(userName);
+          props.setIsLoggedIn(true);
+          navigate('/');
+        }
+
+        
       } else {
         alert('Login failed. Please check your credentials.');
       }
@@ -38,7 +61,7 @@ function LoginPage() {
       console.error('Error:', error);
       alert('An error occurred. Please try again later.');
     }
-  };
+  }
 
   return (
     <div>
