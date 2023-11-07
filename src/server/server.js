@@ -52,13 +52,14 @@ app.post('/marketzone/api/register', (req, res) => {
   // Get the registration data from the request body
   const userData = req.body;
 
-  // Implement the logic to insert the user registration data into your MySQL database
-  const { first_name, last_name, email, username, password } = userData;
+  const { first_name, last_name, email, username, password, street, zip_code, state } = userData;
+
+  const sql = `
+    INSERT INTO users (first_name, last_name, email, username, password, street, zip_code, state)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `;
   
-  // Sample SQL query to insert data into a 'users' table
-  const sql = `INSERT INTO users (first_name, last_name, email, username, password) VALUES (?, ?, ?, ?, ?)`;
-  
-  db.query(sql, [first_name, last_name, email, username, password], (error, results) => {
+  db.query(sql, [first_name, last_name, email, username, password, street, zip_code, state], (error, results) => {
     if (error) {
       console.error('Database error:', error);
       res.json({ success: false, message: 'Registration failed' });

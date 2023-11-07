@@ -10,22 +10,35 @@ class RegistrationPage extends Component {
       email: '',
       username: '',
       password: '',
+      street: '',
+      zip_code: '',
+      state: '',
     };
   }
 
   handleFormSubmit = async (e) => {
     e.preventDefault();
-    const { first_name, last_name, email, username, password } = this.state;
-    
-    // You can add registration logic here, for example, making an HTTP request to your backend API
-    // Send this data to your backend for user registration
+    const {
+      first_name,
+      last_name,
+      email,
+      username,
+      password,
+      street,
+      zip_code,
+      state,
+    } = this.state;
+
+    // ... (your registration logic here)
     console.log('Registration Data:');
     console.log('First Name:', first_name);
     console.log('Last Name:', last_name);
     console.log('Email:', email);
     console.log('Username:', username);
     console.log('Password:', password);
-
+    console.log('Street:', street);
+    console.log('Zip Code:', zip_code);
+    console.log('state:', state);
     try {
       const response = await axios.post('http://localhost:3001/marketzone/api/register', {
         first_name,
@@ -33,6 +46,9 @@ class RegistrationPage extends Component {
         email,
         username,
         password,
+        street,
+        zip_code,
+        state,
       });
 
       if (response.data.success) {
@@ -41,19 +57,24 @@ class RegistrationPage extends Component {
         alert('Registration failed. Please try again.');
       }
 
-    // Reset the form after submission
-    this.setState({
-      first_name: '',
-      last_name: '',
-      email: '',
-      username: '',
-      password: '',
-    });
-  } catch (error) {
-    console.error('Error:', error);
-    alert('An error occurred. Please try again later.');
+      // Reset the form after submission
+      this.setState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        username: '',
+        password: '',
+        street: '',
+        zip_code: '',
+        state: '',
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again later.');
+    }
+
+    window.location.href='marketzone_login';
   }
-}
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,7 +85,7 @@ class RegistrationPage extends Component {
     return (
       <div>
         <div className="header">
-          <h2>Website</h2>
+          <h2></h2>
         </div>
         <div className="loginsection">
           <h2>Hello, Sign up now</h2>
@@ -89,10 +110,22 @@ class RegistrationPage extends Component {
               <label htmlFor="password" className="floating-label floating_label--animate floating_label--inline">Password:</label>
               <input type="password" name="password" id="password" required value={this.state.password} onChange={this.handleInputChange} />
             </div>
+            <div className="forminfo">
+              <label htmlFor="street" className="floating-label floating_label--animate floating_label--inline">Street:</label>
+              <input type="text" name="street" id="street" required value={this.state.street} onChange={this.handleInputChange} />
+            </div>
+            <div className="forminfo">
+              <label htmlFor="zip_code" className="floating-label floating_label--animate floating_label--inline">Zip Code:</label>
+              <input type="text" name="zip_code" id="zip_code" required value={this.state.zip_code} onChange={this.handleInputChange} />
+            </div>
+            <div className="forminfo">
+              <label htmlFor="state" className="floating-label floating_label--animate floating_label--inline">State:</label>
+              <input type="text" name="state" id="state" required value={this.state.state} onChange={this.handleInputChange} />
+            </div>
             <button type="submit">Sign Up</button>
           </form>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <a href="marketzone_login" style={{ alignSelf: 'center', padding: '20px' }}>Already have an account?</a>
+            <a href="marketzone_login" style={{ alignSelf: 'center', padding: '20px' }}>Already have an account?</a>
           </div>
         </div>
       </div>
