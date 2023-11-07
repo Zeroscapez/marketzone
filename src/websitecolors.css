@@ -115,14 +115,24 @@ body{
 
 .product-image {
   margin-right: 10px;
+  height: auto;
+  width: 50%;
+  max-width: 50%;
+  max-height: 50%;
+  display: flex;
 }
 
 .product-image img {
-  max-width: 60%;
+  max-width: 50%;
+  max-height: 50%;
+  width: auto;
+  height: auto;
+ 
 }
 
 .product-description {
   flex: 1;
+ 
 }
 
 .product-description h3 {

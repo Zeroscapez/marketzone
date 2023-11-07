@@ -5,6 +5,7 @@ import RegistrationPage from './registration';
 import HomePage from './homepage';
 import Cookies from 'js-cookie';
 import Accounts from './components/accounts';
+import CartPage from './cartpage';
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -29,7 +30,8 @@ function App() {
             path="/marketzone_login"
             element={<LoginPage setLoggedInUser={setLoggedInUser} setIsLoggedIn={setIsLoggedIn} />}
           />
-          <Route path="/marketzone_registration" element={<RegistrationPage />} />
+          <Route path="/marketzone_registration" element={<RegistrationPage />}/>
+          <Route path="/marketzone_cart" element={<CartPage />}/>
 
           <Route
             path="/"
@@ -38,6 +40,7 @@ function App() {
 
           <Route path="/account_details" element={<Accounts />} />
 
+          
 
 
         </Routes>

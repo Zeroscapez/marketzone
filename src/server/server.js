@@ -217,6 +217,74 @@ app.get('/marketzone/api/products', (req, res) => {
   });
 });
 
+// Add a new API endpoint for fetching the user's cart items
+app.get('/marketzone/api/cart', authenticateToken, (req, res) => {
+  const userId = req.user.id;
+
+  // Implement the logic to fetch the user's cart items from your database
+  const sql = `
+  SELECT c.product_id, p.image, p.name, p.price, c.quantity
+  FROM cart c
+  INNER JOIN products p ON c.product_id = p.id
+  WHERE c.user_id = ?
+`;
+
+
+  db.query(sql, [userId], (error, results) => {
+    if (error) {
+      console.error('Database error:', error);
+      res.json({ success: false, message: 'Failed to retrieve cart items' });
+    } else {
+      res.json({ success: true, data: results });
+    }
+  });
+});
+
+app.post('/marketzone/api/addToCart', authenticateToken, (req, res) => {
+  const userId = req.user.id;
+  const product = req.body.product;
+
+  // Implement the logic to insert the product into the user's cart in your MySQL database
+  // You will need to adjust this SQL query based on your database schema.
+  const sql = `
+  INSERT INTO cart (user_id, product_id, quantity)
+  VALUES (?, ?, 1) 
+  ON DUPLICATE KEY UPDATE quantity = quantity + 1
+`;
+
+
+  db.query(sql, [userId, product.id], (error, results) => {
+    if (error) {
+      console.error('Database error:', error);
+      res.status(500).json({ success: false, message: 'Failed to add product to cart' });
+    } else {
+      console.log('Product added to cart:', results);
+      res.json({ success: true, message: 'Product added to cart successfully' });
+    }
+  });
+});
+
+app.delete('/marketzone/api/cart/:productId', authenticateToken, (req, res) => {
+  const userId = req.user.id;
+  const productId = req.params.productId;
+
+  // Implement the logic to delete the item from the user's cart in your database using productId.
+  // You will need to adjust this SQL query based on your database schema.
+  const sql = 'DELETE FROM cart WHERE user_id = ? AND product_id = ?';
+
+  db.query(sql, [userId, productId], (error, results) => {
+    if (error) {
+      console.error('Database error:', error);
+      res.status(500).json({ success: false, message: 'Failed to delete item from cart' });
+    } else {
+      console.log('Item deleted from cart:', results);
+      res.json({ success: true, message: 'Item deleted from cart successfully' });
+    }
+  });
+});
+
+
+
 
 
 // Define a catch-all route to serve the main HTML file

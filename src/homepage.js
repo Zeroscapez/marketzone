@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Product from './components/Product';
 import accimg from './img/assets/account-25.svg';
 import ProductList from './components/ProductList';
+import { Link } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class App extends Component {
                     Log Out
                   </a>
                 )}
+                <a href= "/marketzone_cart">View Cart</a> {/* Link to the cart page */}
               </div>
             )}
           </div>
