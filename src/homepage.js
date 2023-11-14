@@ -14,6 +14,7 @@ class App extends Component {
       notificationMessage: '',
     };
   }
+  
 
   // Function to toggle the account dropdown
   toggleAccountDropdown = () => {

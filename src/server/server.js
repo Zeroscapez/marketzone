@@ -7,6 +7,7 @@ const path = require('path');
 const secretKey = process.env.SECRET_KEY;
 const jwt = require('jsonwebtoken');
 const authenticateToken = require('./authMiddleware');
+const multer = require('multer');
 
 
 const app = express();
@@ -31,6 +32,19 @@ db.connect((err) => {
   console.log('Connected to MySQL');
 });
 
+// Define storage for the uploaded files
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, process.env.PUBLIC_IMG); // Set the destination folder for uploaded files
+  },
+  filename: function (req, file, cb) {
+    // Use the original name of the file as the filename
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
 
 app.use(bodyParser.json());
 
@@ -38,7 +52,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Serve the React frontend from the 'src' directory
-app.use(express.static(path.join(__dirname, '../src')));
+app.use('/img/products', express.static(path.join(__dirname, '../img/products')));
+
+
 
 
 app.get('/', (req, res) => {
@@ -96,7 +112,7 @@ app.post('/marketzone/api/login', (req, res) => {
       } else {
         // User is authenticated; generate a JWT token
         const user = { id: results[0].id, username: username }; // Include 'id' in the payload
-        const token = jwt.sign(user, secretKey, { expiresIn: '1h' });
+        const token = jwt.sign(user, secretKey, { expiresIn: '10h' });
 
         // Send the token in the response
         res.json({ success: true, token });
@@ -167,9 +183,10 @@ app.post('/marketzone/api/resetPassword', authenticateToken, (req, res) => {
 });
 
 // Add a new API endpoint for listing products
-app.post('/marketzone/api/listProducts', authenticateToken, (req, res) => {
+app.post('/marketzone/api/listProducts', authenticateToken, upload.single('image'), (req, res) => {
   const userId = req.user.id;
-  const { image, name, description, price } = req.body;
+  const { name, description, price } = req.body;
+  const image = "../img/products/" + req.file.filename; // Use the filename provided by multer
 
   // Implement the logic to insert the product listing into your MySQL database
   const sql = `INSERT INTO products (user_id, image, name, description, price) VALUES (?, ?, ?, ?, ?)`;
@@ -185,7 +202,7 @@ app.post('/marketzone/api/listProducts', authenticateToken, (req, res) => {
   });
 });
 
-// Add an API endpoint to fetch the user's product listings
+//API endpoint to fetch the user's product listings
 app.get('/marketzone/api/userProducts', authenticateToken, (req, res) => {
   const userId = req.user.id;
 
@@ -220,7 +237,7 @@ app.get('/marketzone/api/products', (req, res) => {
   });
 });
 
-// Add a new API endpoint for fetching the user's cart items
+//API endpoint for fetching the user's cart items
 app.get('/marketzone/api/cart', authenticateToken, (req, res) => {
   const userId = req.user.id;
 

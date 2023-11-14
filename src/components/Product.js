@@ -3,6 +3,7 @@ import axios from 'axios';
 import "../css/websitecolors.css"
 
 
+
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +34,8 @@ class Product extends Component {
     return (
       <div className="product-container">
         <div className="product-image">
-          <img src={image} alt="img-missing" />
+        <img src={`${image}`} alt="img-missing" />
+          
         </div>
         <div className="product-description">
           <h3>{name}</h3>

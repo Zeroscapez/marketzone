@@ -6,11 +6,25 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    products: [],
+      products: [],
     };
   }
 
   componentDidMount() {
+    this.fetchProducts(); // Fetch products initially
+
+    // Set up an interval to fetch products every 5 minutes (adjust the interval as needed)
+    this.interval = setInterval(() => {
+      this.fetchProducts();
+    }, 900000); // 5 minutes in milliseconds
+  }
+
+  componentWillUnmount() {
+    // Clear the interval when the component is unmounted to prevent memory leaks
+    clearInterval(this.interval);
+  }
+
+  fetchProducts() {
     axios.get('http://localhost:3001/marketzone/api/products')
       .then((response) => {
         this.setState({ products: response.data.data });

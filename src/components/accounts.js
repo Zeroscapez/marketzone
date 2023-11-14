@@ -15,6 +15,8 @@ function Accounts() {
   const [productName, setProductName] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [productPrice, setProductPrice] = useState('');
+  const [productImageFile, setProductImageFile] = useState(null);
+
 
   useEffect(() => {
     // Function to check if the user is authenticated
@@ -47,6 +49,7 @@ function Accounts() {
       axios.post('http://localhost:3001/marketzone/api/resetPassword', { newPassword }, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
       })
         .then((response) => {
@@ -66,12 +69,11 @@ function Accounts() {
     const token = localStorage.getItem('token'); // Get the token from local storage
     if (token) {
       // Implement product listing logic
-      const productData = {
-        image: productImage,
-        name: productName,
-        description: productDescription,
-        price: productPrice,
-      };
+      const productData = new FormData();
+  productData.append('image', productImageFile);
+  productData.append('name', productName);
+  productData.append('description', productDescription);
+  productData.append('price', productPrice);
       axios.post('http://localhost:3001/marketzone/api/listProducts', productData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -101,10 +103,9 @@ function Accounts() {
       <h2>List a Product</h2>
       <div className='product-form'>
         <input
-          type="text"
-          placeholder="Image URL"
-          value={productImage}
-          onChange={(e) => setProductImage(e.target.value)}
+          type="file"
+          accept="image/*"
+          onChange={(e) => setProductImageFile(e.target.files[0])}
         />
         <input
           type="text"
