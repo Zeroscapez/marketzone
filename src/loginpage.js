@@ -17,7 +17,7 @@ function LoginPage(props) {
     console.log('Password:', password);
 
     try {
-      const response = await axios.post('http://marketzonedb.ctnruybewt4o.us-east-2.rds.amazonaws.com/marketzone/api/login', {
+      const response = await axios.post('https://marketzonedb.ctnruybewt4o.us-east-2.rds.amazonaws.com/marketzone/api/login', {
         username,
         password,
       });
