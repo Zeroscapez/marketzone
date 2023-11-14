@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Product from './components/Product';
 import accimg from './img/assets/account-25.svg';
 import ProductList from './components/ProductList';
-import { Link } from 'react-router-dom';
+import Notification from './components/Notification';
+
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +10,8 @@ class App extends Component {
     this.state = {
       isAccountDropdownOpen: false,
       error: null,
+      showNotification: false,
+      notificationMessage: '',
     };
   }
 
@@ -35,14 +37,28 @@ class App extends Component {
     }
   }
 
+  handleAddToCartNotification = (productName) => {
+    this.setState({
+      showNotification: true,
+      notificationMessage: `${productName} added to the cart!`,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        showNotification: false,
+        notificationMessage: '',
+      });
+    }, 1500);
+  };
+
   render() {
     const { isLoggedIn, loggedInUser } = this.props;
-    const { error } = this.state;
+    const { error, showNotification, notificationMessage } = this.state;
 
     return (
       <div>
         <header className="navbar">
-          <h1>Welcome to Our Store</h1>
+          <h1 style={{color:"white"}}>Welcome to Marketzone</h1>
           <div className="account-dropdown">
             <button className="account-button" onClick={this.toggleAccountDropdown}>
               {isLoggedIn ? `My Account (${loggedInUser})` : 'My Account'}
@@ -66,7 +82,15 @@ class App extends Component {
           </div>
         </header>
 
-        <ProductList />
+        <ProductList onAddToCartNotification={this.handleAddToCartNotification} />
+
+
+        {showNotification && (
+           <Notification
+           message={notificationMessage}
+           onClose={() => this.setState({ showNotification: false, notificationMessage: '' })}
+         />
+        )}
 
         {error && <div className="error">{error.message}</div>}
       </div>

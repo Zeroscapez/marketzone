@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios'; // Import Axios for making HTTP requests
-import '../websitecolors.css'; // Import your CSS stylesheet
-import prod1 from '../img/products/prod1.jpg';
+import axios from 'axios';
+import "../css/websitecolors.css"
+
 
 class Product extends Component {
   constructor(props) {
@@ -12,19 +12,18 @@ class Product extends Component {
   }
 
   addToCart(product) {
-    // Send an HTTP POST request to add the product to the user's cart
     axios
       .post('http://localhost:3001/marketzone/api/addToCart', { product }, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Include the user's JWT token for authentication
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       })
       .then((response) => {
-        // Handle the success response, you may want to update your UI to indicate the item was added.
         console.log('Product added to cart:', response.data);
+        // Call the parent component's callback function for showing notifications
+        this.props.onAddToCartNotification(product.name);
       })
       .catch((error) => {
-        // Handle errors, e.g., show an error message to the user.
         console.error('Error adding product to cart:', error);
       });
   }
@@ -43,7 +42,7 @@ class Product extends Component {
           <p>
             <strong>Price: ${price}</strong>
           </p>
-          <button onClick={() => this.addToCart(this.props.product)}>Add to Cart</button>
+          <button className="cartaddbutton" onClick={() => this.addToCart(this.props.product)}>Add to Cart</button>
         </div>
       </div>
     );

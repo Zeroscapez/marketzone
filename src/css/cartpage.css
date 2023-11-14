@@ -83,7 +83,7 @@
   }
 
   .complete-purchase-button:hover {
-    background-color: #333;
+    background-color: #0056b3;
   }
   
  /* Add this style for the "Go Back to Homepage" button */
@@ -102,7 +102,7 @@
   }
   
   .go-back-button:hover {
-    background-color: #333; /* Change background color on hover if desired */
+    background-color: #0056b3; /* Change background color on hover if desired */
   }
 
   /* Add this style for the delete button */
@@ -123,6 +123,8 @@
   .delete-button:hover {
     background-color: darkred; /* Change background color on hover if desired */
   }
+
+
   
   
   

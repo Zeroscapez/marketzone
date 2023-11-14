@@ -12,6 +12,8 @@ const authenticateToken = require('./authMiddleware');
 const app = express();
 const port = 3001;
 
+const stripe = require('stripe')('sk_test_51OAf3dEFbooIJPsjARXvnzJo13Hq8ArzV4bUbZew57Yjsw8GnDYq4IDoSWN36tpHXuaroWu239gcrx7xbRBDWpqd00BV6pxEWp');
+
 
 // Create a MySQL database connection
 const db = mysql.createConnection({
@@ -283,6 +285,127 @@ app.delete('/marketzone/api/cart/:productId', authenticateToken, (req, res) => {
     }
   });
 });
+
+
+
+
+app.post('/marketzone/api/checkout', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { shippingAddress, billingAddress, cardToken, amount } = req.body;
+
+    // Step 1: Create Billing and Shipping Addresses
+    const createBillingAddressSQL = `
+      INSERT INTO billing_addresses (user_id, street, city, state, zip)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+
+    const createShippingAddressSQL = `
+      INSERT INTO shipping_addresses (user_id, street, city, state, zip)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+
+    const billingAddressResult = await db.promise().execute(createBillingAddressSQL, [
+      userId,
+      billingAddress.street,
+      billingAddress.city,
+      billingAddress.state,
+      billingAddress.zip,
+    ]);
+
+    const shippingAddressResult = await db.promise().execute(createShippingAddressSQL, [
+      userId,
+      shippingAddress.street,
+      shippingAddress.city,
+      shippingAddress.state,
+      shippingAddress.zip,
+    ]);
+
+    const billingAddressId = billingAddressResult[0].insertId;
+    const shippingAddressId = shippingAddressResult[0].insertId;
+
+    
+    const createOrderSQL = `
+      INSERT INTO orders (user_id, billing_address_id, shipping_address_id, total_amount)
+      VALUES (?, ?, ?, ?)
+    `;
+
+    const orderResult = await db.promise().execute(createOrderSQL, [
+      userId,
+      billingAddressId,
+      shippingAddressId,
+      amount,
+    ]);
+
+    const orderId = orderResult[0].insertId;
+
+    // Step 3: Fetch Cart Items
+    const cartItemsSQL = `
+      SELECT p.id AS product_id, p.name, p.price, c.quantity
+      FROM cart c
+      INNER JOIN products p ON c.product_id = p.id
+      WHERE c.user_id = ?
+    `;
+
+    const cartItemsResult = await db.promise().query(cartItemsSQL, [userId]);
+    const cartItems = cartItemsResult[0];
+
+    // Step 4: Create Order Items
+    const orderItems = cartItems.map((cartItem) => [
+      orderId,
+      cartItem.product_id,
+      cartItem.quantity,
+      cartItem.price * cartItem.quantity,
+    ]);
+
+    const createOrderItemsSQL = `
+      INSERT INTO order_items (order_id, product_id, quantity, total_price)
+      VALUES (?, ?, ?, ?)
+    `;
+
+    await Promise.all(orderItems.map((item) => db.promise().execute(createOrderItemsSQL, item)));
+
+    // Step 5: Clear Cart
+    const clearCartSQL = 'DELETE FROM cart WHERE user_id = ?';
+    await db.promise().execute(clearCartSQL, [userId]);
+
+    res.json({ success: true, message: 'Checkout successful', orderId });
+  } catch (error) {
+    console.error('Checkout error:', error);
+    res.status(500).json({ success: false, message: 'Checkout failed' });
+  }
+});
+
+
+app.get('/marketzone/api/orders', authenticateToken, (req, res) => {
+  const userId = req.user.id;
+
+  const ordersSQL = `
+    SELECT orders.order_id, orders.total_amount,
+           GROUP_CONCAT(CONCAT(products.name, ' (Quantity:', order_items.quantity, ')') SEPARATOR ', ') AS products_list, 
+           CONCAT(shipping_addresses.street, ', ', shipping_addresses.city, ', ', shipping_addresses.state, ' ', shipping_addresses.zip) AS shipping_address, 
+           CONCAT(billing_addresses.street, ', ', billing_addresses.city, ', ', billing_addresses.state, ' ', billing_addresses.zip) AS billing_address
+    FROM orders
+    INNER JOIN order_items ON orders.order_id = order_items.order_id
+    INNER JOIN products ON order_items.product_id = products.id
+    INNER JOIN shipping_addresses ON orders.shipping_address_id = shipping_addresses.id
+    INNER JOIN billing_addresses ON orders.billing_address_id = billing_addresses.id
+    
+    WHERE orders.user_id = ?
+    GROUP BY orders.order_id
+  `;
+
+  db.query(ordersSQL, [userId], (error, results) => {
+    if (error) {
+      console.error('Error fetching user orders:', error);
+      res.status(500).json({ success: false, message: 'Failed to retrieve user orders' });
+    } else {
+      res.json({ success: true, data: results });
+    }
+  });
+});
+
+
 
 
 

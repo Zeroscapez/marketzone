@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../websitecolors.css'; // Import your CSS stylesheet
+import OrderDetails from './OrderDetails'; // Import the new component
+import  '../css/account.css'
+
 function Accounts() {
   const [user, setUser] = useState({
     first_name: '',
@@ -89,16 +91,15 @@ function Accounts() {
   };
 
   return (
-    <div>
+    <div className='info-container'>
       <h1>Account Details</h1>
       <div>
         <p>Full Name: {user.first_name} {user.last_name}</p>
         <p>Username: {user.username}</p>
       </div>
-      <button onClick={handleResetPassword}>Reset Password</button>
       
       <h2>List a Product</h2>
-      <div className="product-form">
+      <div className='product-form'>
         <input
           type="text"
           placeholder="Image URL"
@@ -125,6 +126,9 @@ function Accounts() {
         />
         <button onClick={handleProductSubmit}>List Product</button>
       </div>
+
+      {/* New component to display order details */}
+      <OrderDetails />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './cartpage.css';
+import './css/cartpage.css';
 
 class CartPage extends Component {
   constructor(props) {
@@ -11,6 +11,20 @@ class CartPage extends Component {
   }
 
   componentDidMount() {
+    this.fetchCartData(); // Fetch cart data immediately when the component mounts
+  
+    // Set up an interval to fetch cart data every, for example, 5 minutes (300,000 milliseconds)
+    this.cartDataInterval = setInterval(() => {
+      this.fetchCartData();
+    }, 800);
+  }
+  
+  componentWillUnmount() {
+    // Clear the interval when the component is unmounted to avoid memory leaks
+    clearInterval(this.cartDataInterval);
+  }
+  
+  fetchCartData() {
     axios
       .get('http://localhost:3001/marketzone/api/cart', {
         headers: {
@@ -18,13 +32,14 @@ class CartPage extends Component {
         },
       })
       .then((response) => {
-        console.log('Cart data:', response.data.data); // Log the received data
+        //console.log('Cart data:', response.data.data); // Log the received data
         this.setState({ cartItems: response.data.data });
       })
       .catch((error) => {
         console.error('Error fetching cart items:', error);
       });
   }
+  
   
 
   handleDeleteItem = (productId) => {
@@ -48,7 +63,10 @@ class CartPage extends Component {
       });
   };
   
-  
+  handleCompletePurchase = () => {
+    // Use the useHistory hook to navigate to the checkout page
+    window.location.href = '/marketzone_checkout';
+  };
   
 
   handleGoBack = () => {

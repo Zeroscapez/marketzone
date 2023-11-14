@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import './websitecolors.css';
+
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import "./css/websitecolors.css"
 
 function LoginPage(props) {
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ function LoginPage(props) {
             <label htmlFor="password" className="floating-label floating_label--animate floating_label--inline">Password</label>
             <input type="password" id="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <button id="signin-continue" name="signin-continue" type="submit">
+          <button  type="submit" className="loginbutton" >
             Log In
           </button>
         </form>

@@ -99,8 +99,6 @@ body{
   margin: 0 auto;
 }
 
-/* Add your styles for the product container, image, and description */
-/* Center the product on the page and reduce its width to 40% */
 .product-container {
   display: flex;
   justify-content: center;
@@ -108,8 +106,8 @@ body{
   background-color: var(--product-bg-color, white);
   padding: 20px;
   border: 1px solid var(--product-border-color, black);
-  max-width: 40%; /* Set the maximum width to 40% of the viewport */
-  margin: 0 auto; /* Center horizontally */
+  max-width: 40%; 
+  margin: 0 auto; 
 }
 
 
@@ -191,12 +189,9 @@ body{
   margin-right: 10px;
   margin-left: 10px;
 }
-/* Add any other styles you want for the navigation bar/header */
 
-/* App.css */
-/* App.css */
-/* App.css */
-/* App.css */
+
+
 .account-dropdown {
   position: relative;
 }
@@ -233,5 +228,39 @@ body{
 .account-dropdown:hover .account-dropdown-content {
   display: block;
 }
+
+
+.cartaddbutton:hover{
+  background-color: #0056b3;
+}
+
+.cart-container {
+  display: flex;
+}
+
+.notification-container {
+  position: fixed;
+  top: 110px; /* Adjust the top position as needed to place it under the navbar */
+  right: 30px;
+  z-index: 1000; /* Adjust the z-index to ensure it appears above other elements */
+}
+
+.notification {
+  background-color: #0056b3; /* Green background color, you can customize this */
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  outline: none;
+}
+
 
 

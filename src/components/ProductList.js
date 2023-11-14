@@ -6,12 +6,11 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
+    products: [],
     };
   }
 
   componentDidMount() {
-    // Fetch products from the backend
     axios.get('http://localhost:3001/marketzone/api/products')
       .then((response) => {
         this.setState({ products: response.data.data });
@@ -26,9 +25,12 @@ class ProductList extends Component {
 
     return (
       <div>
-
         {products.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product
+            key={product.id}
+            product={product}
+            onAddToCartNotification={this.props.onAddToCartNotification}
+          />
         ))}
       </div>
     );
