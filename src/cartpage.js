@@ -16,7 +16,7 @@ class CartPage extends Component {
     // Set up an interval to fetch cart data every, for example, 5 minutes (300,000 milliseconds)
     this.cartDataInterval = setInterval(() => {
       this.fetchCartData();
-    }, 800);
+    }, 800000);
   }
   
   componentWillUnmount() {

@@ -11,8 +11,8 @@ const multer = require('multer');
 
 
 const app = express();
-const port = 3001;
-
+//const port = 3306;
+//module.exports = app;
 const stripe = require('stripe')('sk_test_51OAf3dEFbooIJPsjARXvnzJo13Hq8ArzV4bUbZew57Yjsw8GnDYq4IDoSWN36tpHXuaroWu239gcrx7xbRBDWpqd00BV6pxEWp');
 
 
@@ -434,7 +434,7 @@ app.get('*', (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+//app.listen(port, () => {
+//  console.log(`Server is running on port ${port}`);
+//});
 

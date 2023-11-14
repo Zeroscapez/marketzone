@@ -25,7 +25,7 @@ class ProductList extends Component {
   }
 
   fetchProducts() {
-    axios.get('http://localhost:3001/marketzone/api/products')
+    axios.get('http://marketzonedb.ctnruybewt4o.us-east-2.rds.amazonaws.com/marketzone/api/products')
       .then((response) => {
         this.setState({ products: response.data.data });
       })
