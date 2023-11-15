@@ -24,7 +24,7 @@ function Accounts() {
       const token = localStorage.getItem('token'); // Get the token from local storage
       if (token) {
         // Fetch user account details from the backend
-        axios.get('http://localhost:3001/marketzone/api/accountDetails', {
+        axios.get('https://marketzone-api.vercel.app/marketzone/api/accountDetails', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -46,7 +46,7 @@ function Accounts() {
     const token = localStorage.getItem('token'); // Get the token from local storage
     if (token) {
       // Implement password reset logic
-      axios.post('http://localhost:3001/marketzone/api/resetPassword', { newPassword }, {
+      axios.post('https://marketzone-api.vercel.app/marketzone/api/resetPassword', { newPassword }, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -74,7 +74,7 @@ function Accounts() {
   productData.append('name', productName);
   productData.append('description', productDescription);
   productData.append('price', productPrice);
-      axios.post('http://localhost:3001/marketzone/api/listProducts', productData, {
+      axios.post('https://marketzone-api.vercel.app/marketzone/api/listProducts', productData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

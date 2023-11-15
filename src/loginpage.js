@@ -17,7 +17,7 @@ function LoginPage(props) {
     console.log('Password:', password);
 
     try {
-      const response = await axios.post('https://marketzonedb.ctnruybewt4o.us-east-2.rds.amazonaws.com/marketzone/api/login', {
+      const response = await axios.post('https://marketzone-api.vercel.app/marketzone/api/login', {
         username,
         password,
       });
@@ -37,7 +37,7 @@ function LoginPage(props) {
         
 
         // Fetch the user's name using an API call
-        const userDataResponse = await axios.get('http://localhost:3001/marketzone/api/userData', { headers });
+        const userDataResponse = await axios.get('https://marketzone-api.vercel.app/marketzone/api/userData', { headers });
 
         if (userDataResponse.data.success) {
           // Modify this part to match your actual API response structure

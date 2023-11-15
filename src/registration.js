@@ -40,7 +40,7 @@ class RegistrationPage extends Component {
     console.log('Zip Code:', zip_code);
     console.log('state:', state);
     try {
-      const response = await axios.post('http://localhost:3001/marketzone/api/register', {
+      const response = await axios.post('https://marketzone-api.vercel.app/marketzone/api/register', {
         first_name,
         last_name,
         email,

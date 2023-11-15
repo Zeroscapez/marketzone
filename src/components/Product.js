@@ -14,7 +14,7 @@ class Product extends Component {
 
   addToCart(product) {
     axios
-      .post('http://localhost:3001/marketzone/api/addToCart', { product }, {
+      .post('https://marketzone-api.vercel.app/marketzone/api/addToCart', { product }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

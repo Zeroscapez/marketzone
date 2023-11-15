@@ -25,7 +25,7 @@ class ProductList extends Component {
   }
 
   fetchProducts() {
-    axios.get('https://marketzone-api.onrender.com/marketzone/api/products')
+    axios.get('https://marketzone-api.vercel.app/marketzone/api/products')
       .then((response) => {
         this.setState({ products: response.data.data });
       })

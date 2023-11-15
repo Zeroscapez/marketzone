@@ -10,7 +10,7 @@ const CheckoutPage = () => {
     // Fetch cart items from your database or API
     const fetchCartItems = async () => {
       try {
-        const response = await fetch('http://localhost:3001/getCartItems');
+        const response = await fetch('https://marketzone-api.vercel.app/getCartItems');
         const data = await response.json();
         setCartItems(data);  // Assuming data is an array of cart items
       } catch (error) {

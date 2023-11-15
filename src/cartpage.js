@@ -26,7 +26,7 @@ class CartPage extends Component {
   
   fetchCartData() {
     axios
-      .get('http://localhost:3001/marketzone/api/cart', {
+      .get('https://marketzone-api.vercel.app/marketzone/api/cart', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -44,7 +44,7 @@ class CartPage extends Component {
 
   handleDeleteItem = (productId) => {
     axios
-      .delete(`http://localhost:3001/marketzone/api/cart/${productId}`, {
+      .delete(`https://marketzone-api.vercel.app/marketzone/api/cart/${productId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

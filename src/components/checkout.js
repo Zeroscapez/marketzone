@@ -39,7 +39,7 @@ const CheckoutForm = () => {
 
   const fetchTotalAmount = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/marketzone/api/cart', {
+      const response = await axios.get('https://marketzone-api.vercel.app/marketzone/api/cart', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -77,7 +77,7 @@ const CheckoutForm = () => {
   
         // Continue with the payment request to the server
         const response = await axios.post(
-          'http://localhost:3001/marketzone/api/checkout',
+          'https://marketzone-api.vercel.app/marketzone/api/checkout',
           {
             shippingAddress,
             billingAddress: useShippingAsBilling ? shippingAddress : billingAddress,

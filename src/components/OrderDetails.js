@@ -13,7 +13,7 @@ function OrderDetails() {
       return;
     }
 
-    axios.get('http://localhost:3001/marketzone/api/orders', {
+    axios.get('https://marketzone-api.vercel.app/marketzone/api/orders', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
