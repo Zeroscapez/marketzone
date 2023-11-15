@@ -69,10 +69,11 @@ function Accounts() {
     const token = localStorage.getItem('token');
     if (token) {
       const productData = {
-        image: productImage, // Use the productImage state directly
+        image: productImage,
         name: productName,
         description: productDescription,
         price: productPrice,
+        quantity: productQuantity, 
       };
   
       axios.post('https://marketzone-api.vercel.app/marketzone/api/listProducts', productData, {
@@ -93,6 +94,7 @@ function Accounts() {
     }
   };
   
+  const [productQuantity, setProductQuantity] = useState(1);
 
   return (
     
@@ -140,6 +142,13 @@ function Accounts() {
           placeholder="Product Price"
           value={productPrice}
           onChange={(e) => setProductPrice(e.target.value)}
+        />
+        <input
+        className='forminputs'
+          type="number"
+          placeholder="Product Quantity"
+          value={productQuantity}
+          onChange={(e) => setProductQuantity(e.target.value)}
         />
         
         <button onClick={handleProductSubmit}>List Product</button>
