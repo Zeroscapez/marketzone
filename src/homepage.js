@@ -67,6 +67,7 @@ class App extends Component {
             </button>
             {this.state.isAccountDropdownOpen && (
               <div className="account-dropdown-content">
+                <a href= "/marketzone_cart">View Cart</a> {/* Link to the cart page */}
                 {isLoggedIn ? (
                   <a href="/account_details">Account Details</a>
                 ) : (
@@ -77,7 +78,7 @@ class App extends Component {
                     Log Out
                   </a>
                 )}
-                <a href= "/marketzone_cart">View Cart</a> {/* Link to the cart page */}
+                
               </div>
             )}
           </div>
