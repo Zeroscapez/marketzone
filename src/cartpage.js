@@ -88,46 +88,54 @@ class CartPage extends Component {
     const { cartItems } = this.state;
   
     return (
-      <div className="cart-container">
-        <h2>Shopping Cart</h2>
-        {cartItems && cartItems.length > 0 ? ( // Check if cartItems is defined and not empty
-          <div>
-            <ul className="cart-items">
-              {cartItems.map((item) => (
-                <li key={item.product_id} className="cart-item"> {/* Use product_id as the key */}
-                  <div className="product-image">
-                    <img src={item.image} alt={item.name} className="cart-item-image" />
-                  </div>
-                  <div className="product-description">
-                    <h3>{item.name}</h3>
-                    <p>Price: ${item.price} (Quantity: {item.quantity})</p>
-                    <button
-                      className="delete-button"
-                      onClick={() => this.handleDeleteItem(item.product_id)} // Use product_id
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="total-price">
-              <p>Total Price: ${this.calculateTotalPrice()}</p>
+      <div>
+        <header className='navbar'>
+          <a href='/'><h1>Marketzone</h1></a>
+        </header>
+        <div className="cart-container">
+          <h2>Shopping Cart</h2>
+          {cartItems && cartItems.length > 0 ? (
+            <div>
+              <ul className="cart-items">
+                {cartItems.map((item) => (
+                  <li key={item.product_id} className="cart-item">
+                    <div className="product-image">
+                      <img src={item.image} alt={item.name} className="cart-item-image" />
+                    </div>
+                    <div className="product-description">
+                      <h3>{item.name}</h3>
+                      <p>Price: ${item.price} (Quantity: {item.quantity})</p>
+                      <button
+                        className="delete-button"
+                        onClick={() => this.handleDeleteItem(item.product_id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <div className="total-price">
+                <p>Total Price: ${this.calculateTotalPrice()}</p>
+              </div>
+              <button
+                onClick={this.handleCompletePurchase}
+                className="complete-purchase-button"
+                disabled={cartItems.length === 0} // Disable the button if the cart is empty
+              >Complete Purchase
+              </button>
             </div>
-          </div>
-        ) : (
-          <p>Your cart is empty.</p>
-        )}
-        <button onClick={this.handleCompletePurchase} className="complete-purchase-button">
-          Complete Purchase
-        </button>
-        <button onClick={this.handleGoBack} className="go-back-button" >
-          Go Back to Homepage
-        </button>
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
+          <button onClick={this.handleGoBack} className="go-back-button">
+            Go Back to Homepage
+          </button>
+        </div>
       </div>
     );
   }
-}
+}  
   
 
 export default CartPage;

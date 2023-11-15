@@ -134,7 +134,10 @@ const CheckoutForm = () => {
   
 
   return (
-    
+    <div>
+    <header className='navbar' >
+      <a href='/'><h1>Marketzone</h1></a>
+      </header>
     <div className="forminfo">
       <h2 className="form-header">Checkout</h2>
       <form className="form-section"onSubmit={handleSubmit}>
@@ -249,6 +252,7 @@ const CheckoutForm = () => {
         <button onClick={handleGoBack} className="checkoutbutton">Back to Cart</button>
       </form>
 
+    </div>
     </div>
   );
 };
