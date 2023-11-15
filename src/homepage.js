@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <div>
         <header className="navbar">
-          <h1 style={{color:"white"}}>Welcome to Marketzone</h1>
+          <a href='/'><h1 style={{color:"white"}}>Welcome to Marketzone</h1></a>
           <div className="account-dropdown">
             <button className="account-button" onClick={this.toggleAccountDropdown}>
               {isLoggedIn ? `My Account (${loggedInUser})` : 'My Account'}

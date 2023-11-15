@@ -40,7 +40,7 @@ function Accounts() {
     };
 
     checkAuthentication(); // Call the checkAuthentication function when the component loads
-  }, []); // Empty dependency array means this effect runs once on component load
+  }, []);
 
   const handleResetPassword = () => {
     const token = localStorage.getItem('token'); // Get the token from local storage
@@ -93,43 +93,58 @@ function Accounts() {
   };
 
   return (
-    <div className='info-container'>
+    
+    <div>
+      <header className='navbar' >
+      <a href='/'><h1>Marketzone</h1></a>
+      </header>
+      <div className='info-container'>
+      <div className='contentwithin'>
       <h1>Account Details</h1>
       <div>
         <p>Full Name: {user.first_name} {user.last_name}</p>
         <p>Username: {user.username}</p>
+        <p>Email: {user.email}</p>
       </div>
       
       <h2>List a Product</h2>
       <div className='product-form'>
+        <h3><label htmlFor="uploadfile">Upload Image</label></h3>
+            <input
+            id='uploadfile'
+              type="file"
+              accept="image/*"
+              onChange={(e) => setProductImageFile(e.target.files[0])}
+            />
         <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setProductImageFile(e.target.files[0])}
-        />
-        <input
+        className='forminputs'
           type="text"
           placeholder="Product Name"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
         />
         <input
+        className='forminputs'
           type="text"
           placeholder="Product Description"
           value={productDescription}
           onChange={(e) => setProductDescription(e.target.value)}
         />
         <input
+        className='forminputs'
           type="number"
           placeholder="Product Price"
           value={productPrice}
           onChange={(e) => setProductPrice(e.target.value)}
         />
+        
         <button onClick={handleProductSubmit}>List Product</button>
       </div>
 
       {/* New component to display order details */}
       <OrderDetails />
+      </div>
+      </div>
     </div>
   );
 }

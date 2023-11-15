@@ -40,14 +40,14 @@ function OrderDetails() {
 
   return (
     <div className='bagel'>
-      <h2 style={{paddingTop:"30px"}}>All Orders</h2>
+      <h2 style={{paddingTop:"30px"}}>Your Orders</h2>
       {orders.map((order) => (
         <div key={order.order_id}>
           <p className="orderset"onClick={() => handleOrderClick(order.order_id)}>
-            Order Name: {order.order_id}
+            Order ID: {order.order_id}
           </p>
           {selectedOrder === order.order_id && ( // Show details only for the selected order
-            <div>
+            <div className='ordersheet'>
               <p>Total Amount: {order.total_amount}</p>
               <p>Products List: {order.products_list}</p>
               <p>Shipping Address: {order.shipping_address}</p>

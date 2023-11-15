@@ -7,6 +7,7 @@ class ProductList extends Component {
     super(props);
     this.state = {
       products: [],
+      error: null,
     };
   }
 
@@ -31,11 +32,23 @@ class ProductList extends Component {
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
+        this.setState({ error: 'Failed to fetch products. Please try again later.' });
       });
   }
 
   render() {
-    const { products } = this.state;
+    const { products, error } = this.state;
+
+    // Check for the error state
+    if (error) {
+      return <div>{error}</div>;
+    }
+
+    // Check if products is an array before mapping
+    if (!Array.isArray(products)) {
+      // Handle the error condition
+      return <div>Error fetching products. Please try again later.</div>;
+    }
 
     return (
       <div>

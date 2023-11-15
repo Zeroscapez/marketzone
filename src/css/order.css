@@ -5,4 +5,16 @@
 .orderset{
     border: solid black 2px;
     padding: 10px;
+    border-radius: 50px;
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.ordersheet{
+    border: solid black 2px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 10px;
 }
