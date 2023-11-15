@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import "../css/websitecolors.css"
-
-
+import { useHistory } from 'react-router-dom'; // Import useHistory
+import '../css/websitecolors.css';
 
 class Product extends Component {
   constructor(props) {
@@ -13,12 +12,23 @@ class Product extends Component {
   }
 
   addToCart(product) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // Redirect to the login page if not logged in
+      window.location.href='/marketzone_login'
+      return;
+    }
+
     axios
-      .post('https://marketzone-api.vercel.app/marketzone/api/addToCart', { product }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      })
+      .post(
+        'https://marketzone-api.vercel.app/marketzone/api/addToCart',
+        { product },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         console.log('Product added to cart:', response.data);
         // Call the parent component's callback function for showing notifications
@@ -34,8 +44,7 @@ class Product extends Component {
     return (
       <div className="product-container">
         <div className="product-image">
-        <img src={`${image}`} alt="img-missing" />
-          
+          <img src={`${image}`} alt="img-missing" />
         </div>
         <div className="product-description">
           <h3>{name}</h3>
@@ -47,7 +56,12 @@ class Product extends Component {
           <p>
             <strong>Quantity: {quantity}</strong>
           </p>
-          <button className="cartaddbutton" onClick={() => this.addToCart(this.props.product)}>Add to Cart</button>
+          <button
+            className="cartaddbutton"
+            onClick={() => this.addToCart(this.props.product)}
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
     );
