@@ -74,7 +74,7 @@ function Accounts() {
   productData.append('name', productName);
   productData.append('description', productDescription);
   productData.append('price', productPrice);
-      axios.post('https://www.marketzone-api.vercel.app/marketzone/api/listProducts', productData, {
+      axios.post('https://marketzone-api.vercel.app/marketzone/api/listProducts', productData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
