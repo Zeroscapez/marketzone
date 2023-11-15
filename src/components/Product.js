@@ -30,7 +30,7 @@ class Product extends Component {
   }
 
   render() {
-    const { image, name, description, price, username } = this.props.product;
+    const { image, name, description, price, username, quantity } = this.props.product;
     return (
       <div className="product-container">
         <div className="product-image">
@@ -43,6 +43,9 @@ class Product extends Component {
           <p>Posted by {username}</p>
           <p>
             <strong>Price: ${price}</strong>
+          </p>
+          <p>
+            <strong>Quantity: {quantity}</strong>
           </p>
           <button className="cartaddbutton" onClick={() => this.addToCart(this.props.product)}>Add to Cart</button>
         </div>
