@@ -66,18 +66,18 @@ function Accounts() {
   };
 
   const handleProductSubmit = () => {
-    const token = localStorage.getItem('token'); // Get the token from local storage
+    const token = localStorage.getItem('token');
     if (token) {
-      // Implement product listing logic
-      const productData = new FormData();
-  productData.append('image', productImageFile);
-  productData.append('name', productName);
-  productData.append('description', productDescription);
-  productData.append('price', productPrice);
+      const productData = {
+        image: productImage, // Use the productImage state directly
+        name: productName,
+        description: productDescription,
+        price: productPrice,
+      };
+  
       axios.post('https://marketzone-api.vercel.app/marketzone/api/listProducts', productData, {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
         },
       })
         .then((response) => {
@@ -92,6 +92,7 @@ function Accounts() {
         });
     }
   };
+  
 
   return (
     
@@ -110,13 +111,15 @@ function Accounts() {
       
       <h2>List a Product</h2>
       <div className='product-form'>
-        <h3><label htmlFor="uploadfile">Upload Image</label></h3>
-            <input
-            id='uploadfile'
-              type="file"
-              accept="image/*"
-              onChange={(e) => setProductImageFile(e.target.files[0])}
-            />
+        
+      <input
+  className='forminputs'
+  type="text"
+  placeholder="Image Link"
+  value={productImage}
+  onChange={(e) => setProductImage(e.target.value)}
+/>
+
         <input
         className='forminputs'
           type="text"
