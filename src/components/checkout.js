@@ -62,19 +62,19 @@ const CheckoutForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       // Validate form fields here if needed
-  
+
       // Use Stripe to create a token
       const { token, error } = await stripe.createToken(elements.getElement(CardElement), {
         name: cardholderName,
       });
-  
+
       if (token) {
         // Fetch the total amount dynamically
         const amount = await fetchTotalAmount();
-  
+
         // Continue with the payment request to the server
         const response = await axios.post(
           'https://marketzone-api.vercel.app/marketzone/api/checkout',
@@ -93,10 +93,10 @@ const CheckoutForm = () => {
             },
           }
         );
-  
+
         // Handle the response from the server
         console.log('Payment response:', response.data);
-  
+
         if (response.data.success) {
           // Redirect to the order confirmation page
           const orderId = response.data.orderId;
@@ -123,7 +123,7 @@ const CheckoutForm = () => {
   const handleGoBack = () => {
     window.location.href = '/marketzone_cart'; // Replace '/' with the URL of your homepage
   };
-  
+
 
   // Implement a function to calculate the total amount based on the cart items
   const calculateTotalAmount = () => {
@@ -131,128 +131,128 @@ const CheckoutForm = () => {
     return 100; // Placeholder value
   };
 
-  
+
 
   return (
     <div>
-    <header className='navbar' >
-      <a href='/'><h1>Marketzone</h1></a>
+      <header className='navbar' >
+        <a href='/'><h1>Marketspace</h1></a>
       </header>
-    <div className="forminfo">
-      <h2 className="form-header">Checkout</h2>
-      <form className="form-section"onSubmit={handleSubmit}>
-        {/* Shipping Address Section */}
-        <h3>Shipping Address</h3>
-        <label>
-          Street:
-          <input className=''
-            type="text"
-            value={shippingAddress.street}
-            onChange={(e) => setShippingAddress({ ...shippingAddress, street: e.target.value })}
-            required
-          />
-        </label>
-        <label>
-          City:
-          <input
-            type="text"
-            value={shippingAddress.city}
-            onChange={(e) => setShippingAddress({ ...shippingAddress, city: e.target.value })}
-            required
-          />
-        </label>
-        <label>
-          State:
-          <input
-            type="text"
-            value={shippingAddress.state}
-            onChange={(e) => setShippingAddress({ ...shippingAddress, state: e.target.value })}
-            required
-          />
-        </label>
-        <label>
-          ZIP Code:
-          <input
-            type="text"
-            value={shippingAddress.zip}
-            onChange={(e) => setShippingAddress({ ...shippingAddress, zip: e.target.value })}
-            required
-          />
-        </label>
+      <div className="forminfo">
+        <h2 className="form-header">Checkout</h2>
+        <form className="form-section" onSubmit={handleSubmit}>
+          {/* Shipping Address Section */}
+          <h3>Shipping Address</h3>
+          <label>
+            Street:
+            <input className=''
+              type="text"
+              value={shippingAddress.street}
+              onChange={(e) => setShippingAddress({ ...shippingAddress, street: e.target.value })}
+              required
+            />
+          </label>
+          <label>
+            City:
+            <input
+              type="text"
+              value={shippingAddress.city}
+              onChange={(e) => setShippingAddress({ ...shippingAddress, city: e.target.value })}
+              required
+            />
+          </label>
+          <label>
+            State:
+            <input
+              type="text"
+              value={shippingAddress.state}
+              onChange={(e) => setShippingAddress({ ...shippingAddress, state: e.target.value })}
+              required
+            />
+          </label>
+          <label>
+            ZIP Code:
+            <input
+              type="text"
+              value={shippingAddress.zip}
+              onChange={(e) => setShippingAddress({ ...shippingAddress, zip: e.target.value })}
+              required
+            />
+          </label>
 
-        {/* Billing Address Section */}
-        <h3>Billing Address</h3>
-        <label>
-          Use shipping address as billing address:
-          <input id="checkbox"
-            type="checkbox"
-            checked={useShippingAsBilling}
-            onChange={() => setUseShippingAsBilling(!useShippingAsBilling)}
-          />
-          <br></br>
-          <br></br>
-        </label>
-        {!useShippingAsBilling && (
-          <>
-            <label >
-              Street:
-              <input
-                type="text"
-                value={billingAddress.street}
-                onChange={(e) => setBillingAddress({ ...billingAddress, street: e.target.value })}
-                required
-              />
-            </label>
-            <label>
-              City:
-              <input
-                type="text"
-                value={billingAddress.city}
-                onChange={(e) => setBillingAddress({ ...billingAddress, city: e.target.value })}
-                required
-              />
-            </label>
-            <label>
-              State:
-              <input
-                type="text"
-                value={billingAddress.state}
-                onChange={(e) => setBillingAddress({ ...billingAddress, state: e.target.value })}
-                required
-              />
-            </label>
-            <label>
-              ZIP Code:
-              <input
-                type="text"
-                value={billingAddress.zip}
-                onChange={(e) => setBillingAddress({ ...billingAddress, zip: e.target.value })}
-                required
-              />
-            </label>
-          </>
-        )}
+          {/* Billing Address Section */}
+          <h3>Billing Address</h3>
+          <label>
+            Use shipping address as billing address:
+            <input id="checkbox"
+              type="checkbox"
+              checked={useShippingAsBilling}
+              onChange={() => setUseShippingAsBilling(!useShippingAsBilling)}
+            />
+            <br></br>
+            <br></br>
+          </label>
+          {!useShippingAsBilling && (
+            <>
+              <label >
+                Street:
+                <input
+                  type="text"
+                  value={billingAddress.street}
+                  onChange={(e) => setBillingAddress({ ...billingAddress, street: e.target.value })}
+                  required
+                />
+              </label>
+              <label>
+                City:
+                <input
+                  type="text"
+                  value={billingAddress.city}
+                  onChange={(e) => setBillingAddress({ ...billingAddress, city: e.target.value })}
+                  required
+                />
+              </label>
+              <label>
+                State:
+                <input
+                  type="text"
+                  value={billingAddress.state}
+                  onChange={(e) => setBillingAddress({ ...billingAddress, state: e.target.value })}
+                  required
+                />
+              </label>
+              <label>
+                ZIP Code:
+                <input
+                  type="text"
+                  value={billingAddress.zip}
+                  onChange={(e) => setBillingAddress({ ...billingAddress, zip: e.target.value })}
+                  required
+                />
+              </label>
+            </>
+          )}
 
-        {/* Card Details Section */}
-        <h3>Card Details</h3>
-        <label>
-          Cardholder's Name:
-          <input
-            type="text"
-            value={cardholderName}
-            onChange={(e) => setCardholderName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Card Details:
-          <CardElement className="CardElement" />
-        </label>
-        <button type="submit" >Submit Payment</button>
-        <button onClick={handleGoBack} className="checkoutbutton">Back to Cart</button>
-      </form>
+          {/* Card Details Section */}
+          <h3>Card Details</h3>
+          <label>
+            Cardholder's Name:
+            <input
+              type="text"
+              value={cardholderName}
+              onChange={(e) => setCardholderName(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Card Details:
+            <CardElement className="CardElement" />
+          </label>
+          <button type="submit" >Submit Payment</button>
+          <button onClick={handleGoBack} className="checkoutbutton">Back to Cart</button>
+        </form>
 
-    </div>
+      </div>
     </div>
   );
 };
