@@ -14,7 +14,7 @@ class App extends Component {
       notificationMessage: '',
     };
   }
-  
+
 
   // Function to toggle the account dropdown
   toggleAccountDropdown = () => {
@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <div>
         <header className="navbar">
-          <a href='/'><h1 style={{color:"white"}}>Welcome to Marketzone</h1></a>
+          <a href='/'><h1 style={{ color: "white" }}>Welcome to Marketspace</h1></a>
           <div className="account-dropdown">
             <button className="account-button" onClick={this.toggleAccountDropdown}>
               {isLoggedIn ? `My Account (${loggedInUser})` : 'My Account'}
@@ -67,7 +67,7 @@ class App extends Component {
             </button>
             {this.state.isAccountDropdownOpen && (
               <div className="account-dropdown-content">
-                <a href= "/marketzone_cart">View Cart</a> {/* Link to the cart page */}
+                <a href="/marketzone_cart">View Cart</a> {/* Link to the cart page */}
                 {isLoggedIn ? (
                   <a href="/account_details">Account Details</a>
                 ) : (
@@ -78,7 +78,7 @@ class App extends Component {
                     Log Out
                   </a>
                 )}
-                
+
               </div>
             )}
           </div>
@@ -88,10 +88,10 @@ class App extends Component {
 
 
         {showNotification && (
-           <Notification
-           message={notificationMessage}
-           onClose={() => this.setState({ showNotification: false, notificationMessage: '' })}
-         />
+          <Notification
+            message={notificationMessage}
+            onClose={() => this.setState({ showNotification: false, notificationMessage: '' })}
+          />
         )}
 
         {error && <div className="error">{error.message}</div>}

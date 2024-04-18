@@ -101,7 +101,7 @@ function Accounts() {
 
     <div>
       <header className='navbar' >
-        <a href='/'><h1>Marketzone</h1></a>
+        <a href='/'><h1>Marketspace</h1></a>
       </header>
       <div className='info-container'>
         <div className='contentwithin'>

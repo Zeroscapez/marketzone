@@ -12,18 +12,18 @@ class CartPage extends Component {
 
   componentDidMount() {
     this.fetchCartData(); // Fetch cart data immediately when the component mounts
-  
+
     // Set up an interval to fetch cart data every, for example, 5 minutes (300,000 milliseconds)
     this.cartDataInterval = setInterval(() => {
       this.fetchCartData();
     }, 800000);
   }
-  
+
   componentWillUnmount() {
     // Clear the interval when the component is unmounted to avoid memory leaks
     clearInterval(this.cartDataInterval);
   }
-  
+
   fetchCartData() {
     axios
       .get('https://marketzone-api.vercel.app/marketzone/api/cart', {
@@ -39,8 +39,8 @@ class CartPage extends Component {
         console.error('Error fetching cart items:', error);
       });
   }
-  
-  
+
+
 
   handleDeleteItem = (productId) => {
     axios
@@ -62,20 +62,20 @@ class CartPage extends Component {
         console.error('Error deleting cart item:', error);
       });
   };
-  
+
   handleCompletePurchase = () => {
     // Use the useHistory hook to navigate to the checkout page
     window.location.href = '/marketzone_checkout';
   };
-  
+
 
   handleGoBack = () => {
     window.location.href = '/'; // Replace '/' with the URL of your homepage
   };
-  
-  
-  
-  
+
+
+
+
 
   calculateTotalPrice = () => {
     const { cartItems } = this.state;
@@ -86,11 +86,11 @@ class CartPage extends Component {
 
   render() {
     const { cartItems } = this.state;
-  
+
     return (
       <div>
         <header className='navbar'>
-          <a href='/'><h1>Marketzone</h1></a>
+          <a href='/'><h1>Marketspace</h1></a>
         </header>
         <div className="cart-container">
           <h2>Shopping Cart</h2>
@@ -135,7 +135,7 @@ class CartPage extends Component {
       </div>
     );
   }
-}  
-  
+}
+
 
 export default CartPage;
